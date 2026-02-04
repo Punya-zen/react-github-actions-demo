@@ -38,8 +38,6 @@ on:
     types:
       - completed
 
-
-
 jobs:
   test:
     name: Test React App
@@ -70,9 +68,11 @@ jobs:
         if: ${{ inputs.run_build == 'true' }}
         run: npm run build
 
-      
-
-
 
       
+
+
+
+      
+
 
