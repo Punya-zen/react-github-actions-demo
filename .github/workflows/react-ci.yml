@@ -1,26 +1,65 @@
-name: React CI
+name: React CI Advanced
 
 on:
+  # Auto run on push to main
   push:
     branches: [ main ]
+
+  # Auto run on pull request
   pull_request:
     branches: [ main ]
 
+  # Manual trigger (RUN button)
+  workflow_dispatch:
+    inputs:
+      node_version:
+        description: "Node.js version"
+        required: true
+        default: "18"
+      run_build:
+        description: "Run build step?"
+        required: true
+        default: "true"
+
 jobs:
   test:
+    name: Test React App
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # Step 1: Get code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      # Step 2: Setup Node (from input)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ inputs.node_version }}
+          cache: 'npm'
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # Step 4: Run tests
       - name: Run tests
         run: npm test -- --watch=false
+
+      # Step 5: Build (optional)
+      - name: Build project
+        if: ${{ inputs.run_build == 'true' }}
+        run: npm run build
+
+        inputs:
+  node_version:
+    default: "18"
+  run_build:
+    default: "true"
+cache: 'npm'
+
+
+
+
+        workflow_dispatch:
+
