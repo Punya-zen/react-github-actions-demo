@@ -51,15 +51,4 @@ jobs:
         if: ${{ inputs.run_build == 'true' }}
         run: npm run build
 
-        inputs:
-  node_version:
-    default: "18"
-  run_build:
-    default: "true"
-cache: 'npm'
-
-
-
-
-        workflow_dispatch:
-
+       
