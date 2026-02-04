@@ -1,4 +1,4 @@
-name: React CI Advanced
+name: React
 
 on:
   # 1. Push to main
